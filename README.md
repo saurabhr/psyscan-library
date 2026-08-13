@@ -1,5 +1,7 @@
 # psyscan-library
 
+![logo](docs/logo.png)
+
 Public, versioned index of vetted task and experiment cards for
 [psychscanner](https://github.com/saurabhr/psychscanner).
 
