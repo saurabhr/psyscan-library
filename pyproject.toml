@@ -1,0 +1,18 @@
+[project]
+name = "psyscan-library"
+version = "0.1.0"
+description = "Public, versioned index of vetted task and experiment cards for psychscanner."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "psychscanner>=0.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/saurabhr/psyscan-library"
+Source = "https://github.com/saurabhr/psychscanner"
+
+# ponytail: this index has no library code of its own (tasks/experiments are data,
+# scripts/ is dev tooling) — no [build-system]/[tool.setuptools] needed until it ships
+# an installable package.

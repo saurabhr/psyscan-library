@@ -1,0 +1,42 @@
+name: Validate cards
+
+on:
+  pull_request:
+    paths:
+      - "tasks/**"
+      - "experiments/**"
+      - "scripts/**"
+      - "INDEX_LEDGER.json"
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned psychscanner
+        run: pip install .
+
+      - name: Validate every card
+        run: |
+          set -e
+          shopt -s nullglob
+          for f in tasks/*.json tasks/*.tcard.psyscan experiments/*.json experiments/*.xcard.psyscan; do
+            python scripts/validate_contribution.py "$f"
+          done
+
+      - name: Check INDEX_LEDGER.json is up to date
+        run: |
+          python scripts/index_ledger.py build
+          if ! git diff --exit-code INDEX_LEDGER.json; then
+            echo "::error::INDEX_LEDGER.json is stale — run 'python scripts/index_ledger.py build' and commit the result."
+            exit 1
+          fi
