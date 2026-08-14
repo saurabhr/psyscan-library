@@ -23,7 +23,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install pinned psychscanner
-        run: pip install .
+        run: pip install "psychscanner @ git+https://github.com/saurabhr/psychscanner.git@main" .
 
       - name: Validate every card
         run: |
