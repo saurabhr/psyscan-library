@@ -65,8 +65,12 @@ def find_duplicates(candidate: Path, ledger: dict[str, dict]) -> list[str]:
 
 
 def _load_ledger() -> dict[str, dict]:
-    if LEDGER_PATH.exists():
-        return json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+    # Always rebuild from the current tasks/+experiments/ contents rather
+    # than reading the committed INDEX_LEDGER.json snapshot. A PR can add
+    # two new, not-yet-ledgered cards in the same commit; a duplicate
+    # between them is invisible to a check that only looks at the
+    # committed ledger, since neither candidate is in it yet. A fresh scan
+    # sees both, whether they're being checked in one invocation or two.
     return build_ledger()
 
 

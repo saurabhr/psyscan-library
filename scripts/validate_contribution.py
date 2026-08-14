@@ -60,7 +60,7 @@ def validate_runs(path: Path, card: dict) -> list[str]:
     except ImportError as exc:
         return [f"could not import psychscanner to execute the card: {exc}"]
 
-    is_experiment = "experiments" in path.parts
+    is_experiment = path.resolve().relative_to(REPO_ROOT).parts[0] == "experiments"
     task_file = card.get("task_file") if is_experiment else card
 
     try:
@@ -87,7 +87,7 @@ def validate_contribution(path: Path) -> list[str]:
     except json.JSONDecodeError as exc:
         return [f"invalid JSON: {exc}"]
 
-    is_experiment = "experiments" in path.parts
+    is_experiment = path.resolve().relative_to(REPO_ROOT).parts[0] == "experiments"
     errors += validate_experiment_structure(card) if is_experiment else validate_task_structure(card)
     if errors:
         return errors  # don't bother running/deduping a structurally broken card
