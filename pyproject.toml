@@ -9,6 +9,11 @@ dependencies = [
     "psychscanner>=0.5.0",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "marimo-book",
+]
+
 [project.urls]
 Homepage = "https://github.com/saurabhr/psyscan-library"
 Source = "https://github.com/saurabhr/psychscanner"

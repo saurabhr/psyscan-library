@@ -18,6 +18,13 @@
    ```
 4. Open a PR. CI re-runs the same two checks on every changed card.
 
+## Existing seed cards
+
+`tasks/example_survey.json` was copied in from `psychscanner`'s own
+`examples/tasks/` to bootstrap this index — it's not auto-synced. This repo
+is now the source of truth for it going forward; if `psychscanner`'s copy
+ever changes, treat that as the one that drifted, not this one.
+
 ## What makes a good card
 
 - `taskname` and `items` (task cards) or `task_file` (experiment cards) —

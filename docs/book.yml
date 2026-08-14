@@ -1,0 +1,27 @@
+title: psyscan-library
+description: Public, versioned index of vetted task and experiment cards for psychscanner.
+authors:
+  - name: Saurabh Ranjan
+
+repo: https://github.com/saurabhr/psyscan-library
+branch: main
+
+launch_buttons:
+  molab: true
+  github: true
+  download: true
+
+# See psychscanner-primal/docs/book.yml for the mode explanation — this repo
+# depends on `psychscanner`, so `env` (reuse the build environment) is the
+# simplest match for a one-package docs site.
+dependencies:
+  mode: env
+
+toc:
+  - file: content/intro.md
+  - file: content/browsing.py
+    title: Browse the index
+  - file: content/contributing.md
+    title: Contributing a card
+  - url: https://github.com/saurabhr/psychscanner
+    title: psychscanner (source package)
