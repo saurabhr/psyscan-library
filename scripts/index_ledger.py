@@ -74,6 +74,10 @@ def find_duplicates(candidate: Path, ledger: dict[str, dict]) -> list[str]:
     return warnings
 
 
+def write_ledger(ledger: dict[str, dict]) -> None:
+    LEDGER_PATH.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
 def _load_ledger() -> dict[str, dict]:
     # Always rebuild from the current tasks/+experiments/ contents rather
     # than reading the committed INDEX_LEDGER.json snapshot. A PR can add
@@ -94,7 +98,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if cmd == "build":
         ledger = build_ledger()
-        LEDGER_PATH.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        write_ledger(ledger)
         print(f"Wrote {len(ledger)} entries to {LEDGER_PATH}")
         return 0
 

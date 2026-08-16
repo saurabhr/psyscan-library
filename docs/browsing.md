@@ -38,6 +38,27 @@ card = task_library("example_survey", dirs=paths["tasks"])
 
 ## Run a card end-to-end
 
+Both distros' `psychscanner` package ship `run_card()`, which chains
+`task_library()` lookup + `ExpCardInit` + `ExpCard` + `ScannerModel(...).run()`
+into one call:
+
+```python
+from psychscanner import run_card
+
+results = run_card("example_survey", dirs="psyscan-library/tasks/psychscanner")
+```
+
+`model`/`family` default to the built-in mock LLM (no API key, no network
+calls) — this is exactly what `scripts/validate_contribution.py` runs
+against every card before it's merged (see
+[Contributing a card](contributing.md)). Override them, or any other
+`ExpCardInit` field, as keyword arguments — see `run_card`'s docstring in
+[psychscanner](https://github.com/saurabhr/psychscanner/blob/main/src/psychscanner/run_card.py)
+/ [psychscanner-primal](https://github.com/saurabhr/psychscanner-primal/blob/main/src/psychscanner/run_card.py).
+
+Need the `ExpCard`/`ScannerModel` object itself (e.g. to call `to_csv()`
+afterward)? Build the chain by hand instead:
+
 ```python
 from pathlib import Path
 import tempfile
@@ -60,7 +81,3 @@ card = ExpCardInit(
 scanner = ScannerModel(expcard=ExpCard(card))
 results = scanner.run()
 ```
-
-`mock-llm`/`mock-chat-model` need no API key and make no network calls —
-this is exactly what `scripts/validate_contribution.py` runs against every
-card before it's merged (see [Contributing a card](contributing.md)).

@@ -20,7 +20,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from index_ledger import _load_ledger, find_duplicates  # noqa: E402
+from index_ledger import LEDGER_PATH, _load_ledger, build_ledger, find_duplicates, write_ledger  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -155,6 +155,12 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  - {e}")
         else:
             print(f"PASS: {path}")
+
+    if overall_ok:
+        # Regenerate the ledger so a PASS is ready to commit as-is -- no separate
+        # `index_ledger.py build` step to remember (see CONTRIBUTING.md).
+        write_ledger(build_ledger())
+        print(f"Reindexed cards into {LEDGER_PATH}")
 
     return 0 if overall_ok else 1
 

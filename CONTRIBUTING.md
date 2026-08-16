@@ -16,11 +16,10 @@
    A card that raises during a real run will not be merged. If the installed
    package doesn't match the card's distro subfolder, validation reports
    `SKIP` rather than pass/fail — CI validates each distro in its own job.
-3. Regenerate the ledger and commit it:
-   ```bash
-   python scripts/index_ledger.py build
-   ```
-4. Open a PR. CI re-runs the same checks, per distro, on every changed card.
+   On a full `PASS` it also regenerates `INDEX_LEDGER.json` — commit that
+   change along with your card. (`python scripts/index_ledger.py build`
+   still exists for a manual rebuild, e.g. after deleting a card by hand.)
+3. Open a PR. CI re-runs the same checks, per distro, on every changed card.
 
 ## Existing seed cards
 
