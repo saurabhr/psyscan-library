@@ -1,22 +1,31 @@
 [project]
 name = "psyscan-library"
-version = "0.1.0"
-description = "Public, versioned index of vetted task and experiment cards for psychscanner."
+version = "0.2.0"
+description = "Public, versioned index of vetted task and experiment cards for psychscanner and psychscanner-primal."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-dependencies = [
+dependencies = []
+
+# psychscanner and psychscanner-primal both install as the `psychscanner`
+# import name, so they can't be co-installed — pick the extra matching the
+# distro whose cards you're validating, never both.
+[project.optional-dependencies]
+psychscanner = [
     "psychscanner>=0.5.0",
 ]
-
-[project.optional-dependencies]
+primal = [
+    "psychscanner-primal>=0.1.0",
+]
 docs = [
-    "marimo-book",
+    "mkdocs",
+    "mkdocs-material",
 ]
 
 [project.urls]
 Homepage = "https://github.com/saurabhr/psyscan-library"
 Source = "https://github.com/saurabhr/psychscanner"
+PrimalSource = "https://github.com/saurabhr/psychscanner-primal"
 
 # ponytail: this index has no library code of its own (tasks/experiments are data,
 # scripts/ is dev tooling) — no [build-system]/[tool.setuptools] needed until it ships

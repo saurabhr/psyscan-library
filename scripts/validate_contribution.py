@@ -52,15 +52,47 @@ def validate_experiment_structure(card: dict) -> list[str]:
     return errors
 
 
+def _installed_distro() -> str | None:
+    """Which of psychscanner/psychscanner-primal is installed here, if either
+    (they share the `psychscanner` import name, so at most one really is)."""
+    import importlib.metadata as md
+
+    for dist_name, distro in (("psychscanner-primal", "primal"), ("psychscanner", "psychscanner")):
+        try:
+            md.version(dist_name)
+            return distro
+        except md.PackageNotFoundError:
+            continue
+    return None
+
+
 def validate_runs(path: Path, card: dict) -> list[str]:
     """Actually execute the card end-to-end against the mock LLM. Import is lazy so
-    structural/dedup checks still work without psychscanner installed."""
-    try:
-        from psychscanner import ExpCard, ExpCardInit, ScannerModel
-    except ImportError as exc:
-        return [f"could not import psychscanner to execute the card: {exc}"]
+    structural/dedup checks still work without psychscanner installed.
 
-    is_experiment = path.resolve().relative_to(REPO_ROOT).parts[0] == "experiments"
+    Cards live under tasks/<distro>/ or experiments/<distro>/ — <distro> is
+    "psychscanner" or "primal", each validated against its own package. Only
+    one of the two can be installed in a given environment at a time (they
+    share the `psychscanner` import name), so a distro that isn't installed
+    here is a SKIP, not a failure — CI runs this once per distro.
+    """
+    rel_parts = path.resolve().relative_to(REPO_ROOT).parts
+    is_experiment = rel_parts[0] == "experiments"
+    distro = rel_parts[1]
+
+    if distro == "primal" and is_experiment:
+        return ["primal has no experiment_library — experiment cards can't target primal"]
+
+    installed = _installed_distro()
+    if installed != distro:
+        return [
+            f"SKIP: this card targets '{distro}' but the installed package is "
+            f"{installed!r} — validate it in an environment with the matching "
+            "package installed"
+        ]
+
+    from psychscanner import ExpCard, ExpCardInit, ScannerModel
+
     task_file = card.get("task_file") if is_experiment else card
 
     try:
@@ -110,7 +142,9 @@ def main(argv: list[str] | None = None) -> int:
     for arg in argv:
         path = Path(arg)
         errors = validate_contribution(path)
-        if errors:
+        if len(errors) == 1 and errors[0].startswith("SKIP:"):
+            print(f"SKIP: {path} — {errors[0].removeprefix('SKIP: ')}")
+        elif errors:
             overall_ok = False
             print(f"FAIL: {path}")
             for e in errors:

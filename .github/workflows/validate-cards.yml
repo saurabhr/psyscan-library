@@ -13,6 +13,13 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - distro: psychscanner
+            package: "psychscanner @ git+https://github.com/saurabhr/psychscanner.git@main"
+          - distro: primal
+            package: "psychscanner-primal @ git+https://github.com/saurabhr/psychscanner-primal.git@main"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,18 +29,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install pinned psychscanner
-        run: pip install "psychscanner @ git+https://github.com/saurabhr/psychscanner.git@main" .
+      - name: Install pinned ${{ matrix.package }}
+        run: pip install "${{ matrix.package }}" .
 
-      - name: Validate every card
+      - name: Validate every ${{ matrix.distro }} card
         run: |
           set -e
           shopt -s nullglob
-          for f in tasks/*.json tasks/*.tcard.psyscan experiments/*.json experiments/*.xcard.psyscan; do
+          for f in tasks/${{ matrix.distro }}/*.json tasks/${{ matrix.distro }}/*.tcard.psyscan experiments/${{ matrix.distro }}/*.json experiments/${{ matrix.distro }}/*.xcard.psyscan; do
             python scripts/validate_contribution.py "$f"
           done
 
       - name: Check INDEX_LEDGER.json is up to date
+        if: matrix.distro == 'psychscanner'
         run: |
           python scripts/index_ledger.py build
           if ! git diff --exit-code INDEX_LEDGER.json; then

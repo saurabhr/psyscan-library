@@ -21,7 +21,15 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LEDGER_PATH = REPO_ROOT / "INDEX_LEDGER.json"
-CARD_GLOBS = ["tasks/*.json", "tasks/*.tcard.psyscan", "experiments/*.json", "experiments/*.xcard.psyscan"]
+# tasks/<distro>/*.json etc — cards live under a per-distro subdir (psychscanner/
+# or primal/) since a card validated against one isn't guaranteed to run on the
+# other (see CONTRIBUTING.md).
+CARD_GLOBS = [
+    "tasks/*/*.json",
+    "tasks/*/*.tcard.psyscan",
+    "experiments/*/*.json",
+    "experiments/*/*.xcard.psyscan",
+]
 
 
 def _content_hash(path: Path) -> str:
@@ -36,12 +44,14 @@ def _all_cards() -> list[Path]:
 
 
 def build_ledger() -> dict[str, dict]:
-    """Scan tasks/ and experiments/ and return {relative_path: {kind, content_hash}}."""
+    """Scan tasks/ and experiments/ and return {relative_path: {kind, distro, content_hash}}."""
     ledger = {}
     for card in _all_cards():
         rel = str(card.relative_to(REPO_ROOT))
+        parts = rel.split("/")
         ledger[rel] = {
-            "kind": "task" if rel.startswith("tasks/") else "experiment",
+            "kind": "task" if parts[0] == "tasks" else "experiment",
+            "distro": parts[1],
             "content_hash": _content_hash(card),
         }
     return ledger

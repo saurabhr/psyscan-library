@@ -1,0 +1,52 @@
+site_name: psyscan-library
+site_url: https://psyscan-library.readthedocs.io
+site_description: Public, versioned index of vetted task and experiment cards for psychscanner and psychscanner-primal.
+site_author: Saurabh Ranjan
+repo_url: https://github.com/saurabhr/psyscan-library
+repo_name: saurabhr/psyscan-library
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Browsing cards: browsing.md
+  - download_lib(): download_lib.md
+  - Contributing: contributing.md
+  - psychscanner (source package): https://github.com/saurabhr/psychscanner
+  - psychscanner-primal (source package): https://github.com/saurabhr/psychscanner-primal

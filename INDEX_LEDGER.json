@@ -1,6 +1,12 @@
 {
-  "tasks/example_survey.json": {
+  "tasks/primal/rm_singleturn_demo.json": {
+    "content_hash": "d73a16cfe87da190de1afbc33549b7dd2462fe80021e77f4e0414c03f1895519",
+    "distro": "primal",
+    "kind": "task"
+  },
+  "tasks/psychscanner/example_survey.json": {
     "content_hash": "2e76c90376d9eafdb4135b296592f5180aac108327aee994828f17aa7609a20f",
+    "distro": "psychscanner",
     "kind": "task"
   }
 }
