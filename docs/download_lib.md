@@ -33,11 +33,15 @@ package is actually installed (via `importlib.metadata`) and refuses a
 mismatched `library=` request:
 
 ```python
->>> download_lib(library="primal")  # psychscanner installed, not primal
+>>> download_lib(library="primal", kind="tasks")  # psychscanner installed, not primal
 RuntimeError: library='primal' but the installed package is 'psychscanner' --
 'primal' cards aren't guaranteed to run here. Install the matching package,
 or pass library='all' to fetch both anyway.
 ```
+
+(`kind="tasks"` is required here regardless of the distro mismatch — `library="primal"`
+with the default `kind="both"` hits the "primal has no experiment cards" `ValueError`
+before this check ever runs; see [Parameters](#parameters).)
 
 Pass `library="all"` to opt out of that check — useful for browsing both
 distros' cards, or a CI job that validates both. `primal`'s `download_lib()`

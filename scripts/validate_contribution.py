@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -96,16 +97,19 @@ def validate_runs(path: Path, card: dict) -> list[str]:
     task_file = card.get("task_file") if is_experiment else card
 
     try:
-        card_in = ExpCardInit(
-            task_file=task_file,
-            cogtype="no",
-            nsim=1,
-            model="mock-chat-model",
-            family="mock-llm",
-        )
-        exp = ExpCard(card_in)
-        scanner = ScannerModel(expcard=exp)
-        scanner.run()
+        with tempfile.TemporaryDirectory(prefix="psyscan_library_validate_") as proj_dir:
+            card_in = ExpCardInit(
+                task_file=task_file,
+                cogtype="no",
+                nsim=1,
+                model="mock-chat-model",
+                family="mock-llm",
+                projectname="validate_contribution",
+                proj_dir=Path(proj_dir),
+            )
+            exp = ExpCard(card_in)
+            scanner = ScannerModel(expcard=exp)
+            scanner.run()
     except Exception as exc:  # noqa: BLE001 - any failure here means "does not run"
         return [f"card did not run against the mock LLM: {type(exc).__name__}: {exc}"]
     return []
