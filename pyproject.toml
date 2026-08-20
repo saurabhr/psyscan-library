@@ -3,7 +3,7 @@ name = "psyscan-library"
 version = "0.2.0"
 description = "Public, versioned index of vetted task and experiment cards for psychscanner and psychscanner-primal."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = []
 
