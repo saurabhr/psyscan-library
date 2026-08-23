@@ -31,6 +31,8 @@ content — keyed by its `tasks/<distro>/...` or `experiments/<distro>/...`
 path — so a contribution can't be added twice under different names, and
 flags a filename that's already taken.
 
-See [Browsing cards](browsing.md) to pull cards from a checkout (or via
+See the [Tutorial](tutorial.md) for a walkthrough plus a one-liner
+run command for every card currently in this repo,
+[Browsing cards](browsing.md) to pull cards from a checkout (or via
 `download_lib()`) the same way your own code would, or
 [Contributing a card](contributing.md) to add one.

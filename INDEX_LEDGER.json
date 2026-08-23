@@ -1,11 +1,46 @@
 {
+  "tasks/primal/introspection_weights_demo.json": {
+    "content_hash": "02bf9aeea814c346c8131e1cd95f61451e84cc8962b01b7ea19973fa29867e1b",
+    "distro": "primal",
+    "kind": "task"
+  },
   "tasks/primal/rm_singleturn_demo.json": {
     "content_hash": "d73a16cfe87da190de1afbc33549b7dd2462fe80021e77f4e0414c03f1895519",
     "distro": "primal",
     "kind": "task"
   },
+  "tasks/psychscanner/bfi44.json": {
+    "content_hash": "655a0e19a7701cd2089b2705388f2e498275e7b14d5a2658f535252cc7e6c83e",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
+  "tasks/psychscanner/cognitive_rl_bandit.json": {
+    "content_hash": "e7be7ba0bbb9b74b568c7ceb7bcbceb6465b91bb5938a738beaad167457d6f4f",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
   "tasks/psychscanner/example_survey.json": {
     "content_hash": "2e76c90376d9eafdb4135b296592f5180aac108327aee994828f17aa7609a20f",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
+  "tasks/psychscanner/pal50.json": {
+    "content_hash": "fae21364da48c3a80c383dba070e97e1c4b2d4ffc2a8077fe5dad90e97c53544",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
+  "tasks/psychscanner/prospect_theory_demo.tcard.psyscan": {
+    "content_hash": "2449aec1a72b964c8d303882d05c2f601ee9f8725c347a41c13a692e0dad7bcf",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
+  "tasks/psychscanner/vlm_shapes_demo.tcard.psyscan": {
+    "content_hash": "552cba97f3451f199dc4ffa6fc72ee76f78aa88b99cf776e2f7df31e41a6ea83",
+    "distro": "psychscanner",
+    "kind": "task"
+  },
+  "tasks/psychscanner/vviq16.json": {
+    "content_hash": "ebac9f9b08f70e0319ab4d0927fda923c868ee3483f2f0a5379b54c624c586b3",
     "distro": "psychscanner",
     "kind": "task"
   }

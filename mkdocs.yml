@@ -45,6 +45,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Tutorial: tutorial.md
   - Browsing cards: browsing.md
   - download_lib(): download_lib.md
   - Contributing: contributing.md

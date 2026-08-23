@@ -1,0 +1,52 @@
+{
+  "tasktype": "bandit",
+  "taskname": "cognitive_rl_bandit",
+  "instructions": {
+    "definition": [
+      "Each round, choose one arm: A, B, or C. State your final choice clearly as a single letter."
+    ]
+  },
+  "contexts": [
+    "3-armed bandit"
+  ],
+  "contexts_id": [
+    "bandit"
+  ],
+  "context_present": false,
+  "chain_type": "task",
+  "parser": "0",
+  "items": {
+    "bandit": [
+      {
+        "trcode": "bandit_1",
+        "stimulus": "Round 1: choose A, B, or C.",
+        "fb": true
+      },
+      {
+        "trcode": "bandit_2",
+        "stimulus": "Round 2: choose A, B, or C.",
+        "fb": true
+      },
+      {
+        "trcode": "bandit_3",
+        "stimulus": "Round 3: choose A, B, or C.",
+        "fb": true
+      },
+      {
+        "trcode": "bandit_4",
+        "stimulus": "Round 4: choose A, B, or C.",
+        "fb": true
+      },
+      {
+        "trcode": "bandit_5",
+        "stimulus": "Round 5: choose A, B, or C.",
+        "fb": true
+      },
+      {
+        "trcode": "bandit_6",
+        "stimulus": "Round 6: choose A, B, or C.",
+        "fb": true
+      }
+    ]
+  }
+}
